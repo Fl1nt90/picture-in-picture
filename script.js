@@ -14,8 +14,6 @@ const selectMediaStream = async function () {
   } catch (err) {
     console.log("Oups, an error occurred:", err);
   }
-
-
 };
 
 
@@ -34,5 +32,3 @@ videoElement.addEventListener('enterpictureinpicture', () => {
 videoElement.addEventListener('leavepictureinpicture', () => {
     button.textContent = 'Start Picture-in-Picture';
 });
-
-
