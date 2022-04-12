@@ -19,10 +19,10 @@ const selectMediaStream = async function () {
 
 
 //picture in picture cannot be started automatically, only by user gesture -->event handler
-button.addEventListener("click", function() { 
+button.addEventListener("click", async function() { 
   if (document.pictureInPictureElement) { //to later close PIP, check if is opened
     document.exitPictureInPicture();
-  } else selectMediaStream();
+  } else await selectMediaStream();
 });
 
 //change the button, event handler picture in picture
