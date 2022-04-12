@@ -6,33 +6,33 @@ const selectMediaStream = async function () {
   try {
   await navigator.mediaDevices.getDisplayMedia().then(mediaStream => {
     videoElement.srcObject = mediaStream; //set the mediaStream as source of the video element
-    videoElement.onloadedmetadata = () => videoElement.play(); //start the stream (necessary);
+    videoElement.onloadedmetadata = () => {
+      videoElement.play(); //start the stream (necessary);
+      videoElement.requestPictureInPicture()
+    }
   });
   } catch (err) {
     console.log("Oups, an error occurred:", err);
   }
 
+
 };
-//immediately call the function
-selectMediaStream();
 
 
 
 //picture in picture cannot be started automatically, only by user gesture -->event handler
-button.addEventListener("click", async() => {
+button.addEventListener("click", function() { 
   if (document.pictureInPictureElement) { //to later close PIP, check if is opened
     document.exitPictureInPicture();
-  } else {
-      await videoElement.requestPictureInPicture().catch((error) => {
-        console.log(error)});  }
-  });
+  } else selectMediaStream();
+});
 
 //change the button, event handler picture in picture
 videoElement.addEventListener('enterpictureinpicture', () => {
     button.textContent = 'Exit Picture-in-Picture';
 });
 videoElement.addEventListener('leavepictureinpicture', () => {
-    button.textContent = 'Enter Picture-in-Picture';
+    button.textContent = 'Start Picture-in-Picture';
 });
 
 
